@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter.binhdq",
+	"appName": "mythirdapp",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

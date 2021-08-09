@@ -2,6 +2,7 @@ import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel,
 import { useState } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
+import {shareSocialSharp} from 'ionicons/icons'
 
 const Home: React.FC = () => {
   const [name, setName] = useState('')
@@ -31,7 +32,8 @@ const Home: React.FC = () => {
           <IonInput type="text" value={name} onIonChange={(event) => setName(event.detail.value!)}></IonInput>
         </IonItem>
         <IonButton expand="block" onClick={clickHandler}>
-          Ok</IonButton>
+          <IonIcon icon={shareSocialSharp} size="large" slot="icon-only"></IonIcon>
+        </IonButton>
         {
           name &&
           <IonItem>
