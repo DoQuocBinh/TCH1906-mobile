@@ -1,15 +1,24 @@
-import { IonButton, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 import { useState } from 'react';
-import {personAdd} from 'ionicons/icons'
+import { personAdd } from 'ionicons/icons'
+import { insertCustomer } from '../databaseHandler';
 const Register: React.FC = () => {
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
-  const [gender,setGender] = useState('')
-  const [languages,setLanguages] = useState<string[]>()
-  const [dateofBirth,setDateOfBirth] = useState(new Date().toISOString());
+  const [gender, setGender] = useState('')
+  const [languages, setLanguages] = useState<string[]>([])
+  const [dateofBirth, setDateOfBirth] = useState(new Date().toISOString());
 
-  const formatDate = (isoDateString:string) =>{
+  const formatDate = (isoDateString: string) => {
     return new Date(isoDateString).toLocaleDateString("vi-VN");
+  }
+
+  function registerHandler() {
+    var customer = {
+      name: name, country: country, gender: gender,
+      languages: languages, dateofBirth: dateofBirth
+    }
+    insertCustomer(customer);
   }
   return (
     <IonPage>
@@ -33,7 +42,7 @@ const Register: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Gender</IonLabel>
-            <IonRadioGroup onIonChange={e=>setGender(e.detail.value)}>
+            <IonRadioGroup onIonChange={e => setGender(e.detail.value)}>
               <IonItem lines="none">
                 <IonLabel>Male</IonLabel>
                 <IonRadio value="Male" />
@@ -46,21 +55,21 @@ const Register: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Langagues can speak</IonLabel>
-            <IonSelect multiple={true} onIonChange={e=>setLanguages(e.detail.value)}>
+            <IonSelect multiple={true} onIonChange={e => setLanguages(e.detail.value)}>
               <IonSelectOption value="Vietnamese">Vietnamese</IonSelectOption>
               <IonSelectOption value="English">English</IonSelectOption>
             </IonSelect>
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Date of Birth</IonLabel>
-            <IonDatetime value={dateofBirth} 
-                onIonChange={e=>setDateOfBirth(e.detail.value!)}></IonDatetime>
+            <IonDatetime value={dateofBirth}
+              onIonChange={e => setDateOfBirth(e.detail.value!)}></IonDatetime>
           </IonItem>
-          <IonButton color="secondary" expand="block">
+          <IonButton onClick={registerHandler}  color="secondary" expand="block">
             <IonIcon slot="icon-only" icon={personAdd}></IonIcon>
-            </IonButton>
+          </IonButton>
         </IonList>
-        
+
       </IonContent>
     </IonPage>
   );
