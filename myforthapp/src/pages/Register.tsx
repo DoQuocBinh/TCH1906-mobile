@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToast, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToast, IonToolbar, useIonToast } from '@ionic/react';
 import { useState } from 'react';
 import { personAdd } from 'ionicons/icons'
 import { insertCustomer } from '../databaseHandler';
@@ -9,6 +9,8 @@ const Register: React.FC = () => {
   const [languages, setLanguages] = useState<string[]>([])
   const [dateofBirth, setDateOfBirth] = useState(new Date().toISOString());
 
+  const [present,dismiss] = useIonToast();
+
   const formatDate = (isoDateString: string) => {
     return new Date(isoDateString).toLocaleDateString("vi-VN");
   }
@@ -18,7 +20,9 @@ const Register: React.FC = () => {
       name: name, country: country, gender: gender,
       languages: languages, dateofBirth: dateofBirth
     }
-    insertCustomer(customer);
+    insertCustomer(customer).then(()=>{
+        present("Insert customer successfully!",3000)
+    })
   }
   return (
     <IonPage>
