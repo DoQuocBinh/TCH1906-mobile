@@ -1,11 +1,16 @@
-import { IonContent, IonHeader, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
 import { useState } from 'react';
-
+import {personAdd} from 'ionicons/icons'
 const Register: React.FC = () => {
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
   const [gender,setGender] = useState('')
   const [languages,setLanguages] = useState<string[]>()
+  const [dateofBirth,setDateOfBirth] = useState(new Date().toISOString());
+
+  const formatDate = (isoDateString:string) =>{
+    return new Date(isoDateString).toLocaleDateString("vi-VN");
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -46,8 +51,16 @@ const Register: React.FC = () => {
               <IonSelectOption value="English">English</IonSelectOption>
             </IonSelect>
           </IonItem>
+          <IonItem>
+            <IonLabel position="stacked">Date of Birth</IonLabel>
+            <IonDatetime value={dateofBirth} 
+                onIonChange={e=>setDateOfBirth(e.detail.value!)}></IonDatetime>
+          </IonItem>
+          <IonButton color="secondary" expand="block">
+            <IonIcon slot="icon-only" icon={personAdd}></IonIcon>
+            </IonButton>
         </IonList>
-        {languages}
+        
       </IonContent>
     </IonPage>
   );
