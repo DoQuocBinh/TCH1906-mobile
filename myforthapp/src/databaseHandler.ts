@@ -7,6 +7,20 @@ initDB().then(()=>{
     console.log("Init database done! ",DATABASE_NAME)
 })
 
+export async function getAllCustomers() {
+    const db = await openDB(DATABASE_NAME, 1);
+    var cursor = await db.transaction("customers").objectStore("customers").
+         
+    openCursor();
+    var customers = []; //init an empty array
+    //while there are customers left
+    while (cursor) {
+        customers.push(cursor.value); //add the new customer to the result
+        cursor = await cursor.continue(); //move to the next customer
+    }
+    return customers;
+}
+
 export async function  insertCustomer(customer:Customer){
     const db = await openDB(DATABASE_NAME, 1)
     const tx = db.transaction('customers', 'readwrite');
@@ -15,6 +29,7 @@ export async function  insertCustomer(customer:Customer){
     await store.put(customer)
     console.log("insertion done!")
 }
+
 
 async function initDB(){
     const db = await openDB(DATABASE_NAME,1,{
