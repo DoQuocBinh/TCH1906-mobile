@@ -48,11 +48,11 @@ const Register: React.FC = () => {
             <IonLabel position="stacked">Gender</IonLabel>
             <IonRadioGroup onIonChange={e => setGender(e.detail.value)}>
               <IonItem lines="none">
-                <IonLabel>Male</IonLabel>
+                <IonLabel><small>Male</small></IonLabel>
                 <IonRadio value="Male" />
               </IonItem>
               <IonItem lines="none">
-                <IonLabel>Female</IonLabel>
+                <IonLabel><small>Female</small></IonLabel>
                 <IonRadio value="Female" />
               </IonItem>
             </IonRadioGroup>
