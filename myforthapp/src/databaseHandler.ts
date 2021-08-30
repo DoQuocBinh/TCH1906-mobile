@@ -7,6 +7,23 @@ initDB().then(()=>{
     console.log("Init database done! ",DATABASE_NAME)
 })
 
+export async function updateCustomer(customer:Customer) {
+    //find in the database with the id
+    const db = await openDB(DATABASE_NAME, 1);
+    const tx = db.transaction('customers', 'readwrite');
+    const store = tx.objectStore('customers');
+    var updateCustomer = await store.get(customer.id!) as Customer
+    //update the found record with new values
+    updateCustomer.name  = customer.name
+    updateCustomer.country = customer.country
+    updateCustomer.languages =customer.languages
+    updateCustomer.gender = customer.gender
+    updateCustomer.dateofBirth = customer.dateofBirth
+    //really do the update: from memory ->database
+    db.put("customers",updateCustomer);
+    await tx.done;
+}
+
 export async function deleteCustomer(id:number) {
     const db = await openDB(DATABASE_NAME, 1);
     await db.delete("customers",id);
