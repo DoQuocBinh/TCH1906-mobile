@@ -43,11 +43,16 @@ const Details: React.FC = () => {
     updateCustomer(customer);
     alert('Update done!')
   }
-  function handleDelete() {
+  async function handleDelete() {
     //call databaseHandle to delete the current customer
-    deleteCustomer(Number.parseInt(id))
-    alert("deletion done!")
-    history.goBack();
+    let r = window.confirm("Are you sure to delete this ");
+    console.log('your action',r)
+    if (!r) {
+      alert("You cancelled!")
+    } else {
+      await deleteCustomer(Number.parseInt(id));
+      history.goBack();
+    }
   }
 
   useEffect(() => {
