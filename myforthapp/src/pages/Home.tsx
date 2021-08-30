@@ -1,5 +1,4 @@
-import { IonContent, IonHeader, IonItem, IonList, IonPage, IonRefresher, IonRefresherContent, IonTitle, IonToolbar } from '@ionic/react';
-import { debug } from 'console';
+import { IonContent, IonHeader, IonItem, IonList, IonPage, IonRefresher, IonRefresherContent, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { getAllCustomers } from '../databaseHandler';
 import { Customer } from '../models';
@@ -14,9 +13,13 @@ const Home: React.FC = () => {
     console.log(allCustomers)
   }
   //it will run at least once every time the page is rendered
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetchData();
+  // }, [])
+  //it helps to refresh the home when you navigate between pages
+  useIonViewWillEnter(()=>{
     fetchData();
-  }, [])
+  })
 
   async function refreshTheData(event: any) {
     await fetchData() //to update customer list again

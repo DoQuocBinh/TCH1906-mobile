@@ -1,6 +1,6 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { getCustomer, deleteCustomer,updateCustomer} from '../databaseHandler';
 import { Customer } from '../models';
 import { trashBin } from 'ionicons/icons'
@@ -15,6 +15,8 @@ const Details: React.FC = () => {
   const [gender, setGender] = useState('')
   const [languages, setLanguages] = useState<string[]>([])
   const [dateofBirth, setDateOfBirth] = useState(new Date().toISOString());
+
+  const history = useHistory();
 
   const [currentCustomer, setCurrentCustomer] = useState<Customer>();
   const { id } = useParams<ParamId>()
@@ -45,6 +47,7 @@ const Details: React.FC = () => {
     //call databaseHandle to delete the current customer
     deleteCustomer(Number.parseInt(id))
     alert("deletion done!")
+    history.goBack();
   }
 
   useEffect(() => {
@@ -123,13 +126,8 @@ const Details: React.FC = () => {
           </IonList>
         }
         <IonButton onClick={updateHandle} expand="block" color="warning">Update</IonButton>
-        {country}
       </IonContent>
     </IonPage>
   );
 };
 export default Details;
-
-function present(arg0: string, arg1: number) {
-  throw new Error('Function not implemented.');
-}
