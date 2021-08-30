@@ -5,6 +5,7 @@ import { getAllCustomers } from '../databaseHandler';
 import { Customer } from '../models';
 
 const Home: React.FC = () => {
+  //list of customers-> will be used in the List component
   const [customers, setCustomers] = useState<Customer[]>([]);
 
   async function fetchData() {

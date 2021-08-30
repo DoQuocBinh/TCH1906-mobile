@@ -7,6 +7,11 @@ initDB().then(()=>{
     console.log("Init database done! ",DATABASE_NAME)
 })
 
+export async function deleteCustomer(id:number) {
+    const db = await openDB(DATABASE_NAME, 1);
+    await db.delete("customers",id);
+}
+
 export async function getCustomer(id:number) {
     const db = await openDB(DATABASE_NAME, 1);
     const customer = await db.get('customers',id)
@@ -37,7 +42,7 @@ export async function  insertCustomer(customer:Customer){
     console.log("insertion done!")
 }
 
-
+//if database has not created, it will create a new one
 async function initDB(){
     const db = await openDB(DATABASE_NAME,1,{
         upgrade(db){
