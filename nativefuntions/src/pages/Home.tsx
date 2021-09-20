@@ -23,7 +23,7 @@ const Home: React.FC = () => {
         <IonButton onClick={()=>myPlayer?.audioEl.current?.pause()}>Pause</IonButton>
         <ReactAudioPlayer
             ref={(element) => { myPlayer = element; }}
-            controls
+            // controls
             src = "./assets/music.mp3"
         />
       </IonContent>
