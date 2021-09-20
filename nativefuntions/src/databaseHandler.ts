@@ -6,6 +6,11 @@ initDB().then(()=>{
     console.log(DATABASE_NAME + ' created or opened!')
 })
 
+export async function getAllPics() {
+    const db = await openDB(DATABASE_NAME, 1)
+    return await db.getAll("UserPics")
+}
+
 export async function savePicture(picture:any) {
     const db = await openDB(DATABASE_NAME, 1)
     db.put("UserPics",picture)
