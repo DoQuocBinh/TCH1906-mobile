@@ -2,6 +2,11 @@ import { openDB } from 'idb'
 
 const DATABASE_NAME = 'reviewApp1'
 
+export async function getEmployees() {
+    const db = await openDB(DATABASE_NAME, 1)
+    return await db.getAll("employee")
+}
+
 export async function insertEmployee(emp:any) {
     const db = await openDB(DATABASE_NAME, 1)
     await db.put("employee",emp)
