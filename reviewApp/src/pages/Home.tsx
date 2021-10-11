@@ -13,6 +13,9 @@ const Home: React.FC = () => {
   const [name, setName] = useState('')
   const [gender, setGender] = useState('')
   const [employees, setEmployees] = useState<Employee[]>([])
+  const [shouldCheck,setShouldCheck] = useState(false)
+  const [refreshFlag,setRefreshFlag] = useState(false)
+
 
   async function fetchData() {
     //example for search
@@ -25,15 +28,27 @@ const Home: React.FC = () => {
     setEmployees(result)
   }
 
+  function isValidName(){
+    if(name.length ==0){
+      return false;
+    }else{
+      return true;
+    }
+  }
   async function handleSave() {
-    const emp = { name: name, gender: gender }
-    await insertEmployee(emp)
-    alert('Insert Ok!')
+    setShouldCheck(true)
+    if(isValidName()){
+      const emp = { name: name, gender: gender }
+      await insertEmployee(emp)
+      alert("Insert done!")
+      //false->true->false->true->false
+      setRefreshFlag(!refreshFlag)
+    }
   }
 
   useEffect(()=>{
     fetchData()
-  },[])
+  },[refreshFlag])
 
   return (
     <IonPage>
@@ -47,6 +62,9 @@ const Home: React.FC = () => {
           <IonItem>
             <IonLabel position="floating">Name</IonLabel>
             <IonInput onIonChange={(e) => setName(e.detail.value!)}></IonInput>
+            {shouldCheck && !isValidName() &&
+                <p className="errorMsg">Name is required!</p>
+            }           
           </IonItem>
           <IonItem>
             <IonLabel position="floating">Gender</IonLabel>
