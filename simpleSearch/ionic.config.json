@@ -1,0 +1,7 @@
+{
+  "name": "simpleSearch",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

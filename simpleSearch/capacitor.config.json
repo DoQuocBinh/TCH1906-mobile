@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "simpleSearch",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
